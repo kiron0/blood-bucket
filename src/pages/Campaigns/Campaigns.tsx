@@ -28,8 +28,8 @@ export default function Campaigns() {
                                         </div>
                               </div>
 
-                              <div className="container mx-auto px-3 lg:px-0 py-16 md:py-24">
-                                        <div className="flex flex-wrap -mx-3">
+                              <div className="container mx-auto px-5 md:px-0 py-10 md:py-24">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full mb-8 md:mb-16 gap-8">
                                                   {campaignsData.map((campaign, index) => (
                                                             <Campaign key={index} {...campaign} />
                                                   ))}

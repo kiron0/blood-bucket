@@ -50,10 +50,10 @@ const Login = (props: Props) => {
   useEffect(() => {
     /* If Error */
     if (error) {
-      toast.error((error as any).data.message);
-      toast.error((error as any)?.data);
+      // toast.error((error as any).data?.message);
+      // toast.error((error as any)?.data);
       swal({
-        title: (error as any)?.data?.message,
+        title: (error as any),
         icon: "error",
         dangerMode: true,
         buttons: ["cancel", "okay"],

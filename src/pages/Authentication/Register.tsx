@@ -30,7 +30,6 @@ export default function Register(props: Props) {
     email: string;
     password: string;
     confirmPassword: string;
-    phone?: string;
     bloodGroup?: string;
   };
 
@@ -51,9 +50,9 @@ export default function Register(props: Props) {
     let role: string = userRole ? "receiver" : "donor";
     if (!userRole) {
       /* Phone Number Validation */
-      if (!/^(?:\+88|01)?\d{11}$/.test((formData as any)?.phone)) {
-        return toast.error("Invalid Phone Number");
-      }
+      // if (!/^(?:\+88|01)?\d{11}$/.test((formData as any)?.phone)) {
+      //   return toast.error("Invalid Phone Number");
+      // }
     }
 
     if (formData.password === formData.confirmPassword) {
@@ -103,7 +102,7 @@ export default function Register(props: Props) {
               <Fade top distance="20px" cascade>
                 <h3 className="text-3xl font-bold">Welcome Back</h3>
                 <p className="my-4">
-                  Welcome back to the One Life Resources app. here you will get your life through blood for yourself.
+                  Welcome back to the Blood Bucket app. here you will get your life through blood for yourself.
                 </p>
                 <button
                   onClick={() => {
@@ -152,7 +151,7 @@ export default function Register(props: Props) {
                 {!userRole && (
                   <div className="form-control">
                     <div className="input-group my-0 flex items-start gap-3 flex-col rounded-none">
-                      <label htmlFor="Phone">
+                      <label htmlFor="bloodGroup">
                         Blood Group <small className="text-error">*</small>
                       </label>
                       <select className="w-full p-4 border focus:outline-gray-200 focus:outline-none rounded-none"

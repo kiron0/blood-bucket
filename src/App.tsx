@@ -13,6 +13,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Welcome from './pages/Dashboard/Welcome/Welcome';
 import ScrollButton from './components/ScrollButton/ScrollButton';
 import ContactUs from './pages/ContactUs/ContactUs';
+import Donors from './pages/Donors/Donors';
 
 export const InitializeContext = createContext(null as any);
 
@@ -44,6 +45,7 @@ const App = (props: Props) => {
         {isLoading ? <LoadingScreen /> : <Navbar />}
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/donors" element={<Donors />} />
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/volunteers" element={<Volunteers />} />
           <Route path="/contact-us" element={<ContactUs />} />

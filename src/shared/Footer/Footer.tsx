@@ -28,7 +28,7 @@ const Footer = () => {
                 <div>
                     <BiDonateBlood className="text-3xl" />
                     <p>
-                        <span className="text-2xl font-semibold">One Life Resources.</span>
+                        <span className="text-2xl font-semibold">Blood Bucket.</span>
                         <br />
                         All rights reserved.
                     </p>
@@ -99,7 +99,7 @@ const Footer = () => {
             </footer>
             <div className="text-center py-6">
                 <p className="text-md font-semibold lg:text-sm">
-                    Copyright &copy; 2022 - All rights reserved by One Life Resources.
+                    Copyright &copy; 2022 - All rights reserved by Blood Bucket.
                 </p>
             </div>
         </div>

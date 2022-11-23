@@ -30,10 +30,10 @@ export default function Banner(props: Props) {
                                                                                 <strong className="text-primary">Change their life.</strong>
                                                                       </span>
                                                                       <h1 className="text-3xl md:text-5xl font-bold leading-tight">
-                                                                                Donate blood to save lives.
+                                                                                Donate <span className='text-error'>blood</span> to save lives.
                                                                       </h1>
                                                                       <p className="py-6">
-                                                                      We found that donors desire to help a family member or a friend in need of blood was the most cited motivator for blood donation in this study followed by a positive attitude of staff at the donor clinic, the desire to help other people, and a reminder to donate when there is a shortage of blood.
+                                                                                We found that donors desire to help a family member or a friend in need of blood was the most cited motivator for blood donation in this study followed by a positive attitude of staff at the donor clinic, the desire to help other people, and a reminder to donate when there is a shortage of blood.
                                                                       </p>
                                                                       <Link to="/register" className="btn btn-error text-white">
                                                                                 Get Started
