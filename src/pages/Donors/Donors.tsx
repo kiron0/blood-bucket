@@ -11,7 +11,7 @@ export default function Donors() {
           useScrollToTop();
           useTitle("Find a Donor");
           return (
-                    <section>
+                    <section className='overflow-x-hidden'>
                               <div className="breadcrumb text-center py-32 flex flex-col items-center justify-center mx-auto" style={{
                                         backgroundImage: `url(${require("../../assets/campaigns.jpg")})`, backgroundPosition: "center", backgroundSize: "cover", backgroundRepeat: "no-repeat",
                                         height: "400px",
@@ -29,27 +29,27 @@ export default function Donors() {
                                                   </div>
                                         </div>
 
-                                        <div className='mt-10 flex justify-center items-center gap-2 md:gap-4'>
+                                        <div className='container w-full px-6 mt-10 flex justify-center items-center mx-auto gap-2 md:gap-4'>
                                                   <div className="form-control">
                                                             <div className="input-group">
-                                                                      <input type="text" placeholder="Find a donor…" className="input input-bordered" />
+                                                                      <input type="text" placeholder="Find a donor…" className="input input-bordered w-full" />
                                                                       <button className="btn btn-square text-white">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                                                                       </button>
                                                             </div>
                                                   </div>
 
-                                                  <div className='btn'>
-                                                            <span className='tooltip' data-tip="Advanced filters">
-                                                                      <label htmlFor="filterModal">
+                                                  <label htmlFor="filterModal">
+                                                            <div className='btn'>
+                                                                      <span className='tooltip' data-tip="Advanced filters">
                                                                                 <RiEqualizerLine className='text-white cursor-pointer text-lg' />
-                                                                      </label>
-                                                            </span>
-                                                  </div>
+                                                                      </span>
+                                                            </div>
+                                                  </label>
                                         </div>
                               </div>
 
-                              <div className="container mx-auto px-5 md:px-0 py-10 md:py-24">
+                              <div className="container mx-auto px-3 md:px-0 py-10 md:py-24">
                                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full mb-8 md:mb-16 gap-8">
                                                   {donorsData.map((donor) => (
                                                             <DonorsCard {...donor} />

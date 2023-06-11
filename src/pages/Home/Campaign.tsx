@@ -10,9 +10,9 @@ export default function Campaign(props: Props, index: number) {
           const [showMore, setShowMore] = useState<Boolean>(false);
           const { image, title, description } = props;
           return (
-                    <div className="bg-base-100 rounded-lg shadow-lg overflow-hidden" key={index}>
+                    <div className="glass rounded-lg" key={index}>
                               <div className="relative">
-                                        <img src={image} alt="" className="w-full h-64 object-cover" />
+                                        <img src={image} alt="" className="w-full rounded-t-lg h-64 object-cover" />
                               </div>
                               <div className="p-6">
                                         <h3 className="text-xl font-semibold mb-4">{title}</h3>

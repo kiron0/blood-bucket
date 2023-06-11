@@ -6,8 +6,8 @@ export const donorsData = [
                     location: "Dhaka",
                     bloodType: "A+",
                     contact: "01700000000",
-                    lastDonated: "2021-03-01",
-                    nextDonated: "2021-03-31",
+                    lastDonated: "2022-03-01",
+                    nextDonated: "2022-05-31",
                     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc sit amet aliquam luctus, nisi nisl aliquam mauris, eget aliquam nisl nisl sit amet lorem. Sed euismod, nunc sit amet aliquam luctus, nisi nisl aliquam mauris, eget aliquam nisl nisl sit amet lorem.",
           },
           {
@@ -23,7 +23,7 @@ export const donorsData = [
           },
           {
                     id: 3,
-                    avatar: "https://media-exp1.licdn.com/dms/image/D5603AQHOBFn4HBKfNw/profile-displayphoto-shrink_800_800/0/1645690764323?e=2147483647&v=beta&t=CoelHOgZCleG5OeNW5QOxkagyGi0myUn_80HQkezw54",
+                    avatar: "https://www.nhf.org.bd/images/doctor_images/2339.jpg",
                     name: "Kamal Uddin",
                     location: "Chittagong",
                     bloodType: "O+",
@@ -34,7 +34,7 @@ export const donorsData = [
           },
           {
                     id: 4,
-                    avatar: "https://uploads.toptal.io/profile_photo/image/user/36530/large_bbaa11d8cf11e6ece3ebba5be6adbe5c.jpg",
+                    avatar: "https://cdip.uiu.ac.bd/wp-content/uploads/2016/06/1780902_512737798828609_5559285813346014864_n.jpg",
                     name: "Jamal Uddin",
                     location: "Barisal",
                     bloodType: "A-",
@@ -45,7 +45,7 @@ export const donorsData = [
           },
           {
                     id: 5,
-                    avatar: "https://media-exp1.licdn.com/dms/image/D5603AQHOBFn4HBKfNw/profile-displayphoto-shrink_800_800/0/1645690764323?e=2147483647&v=beta&t=CoelHOgZCleG5OeNW5QOxkagyGi0myUn_80HQkezw54",
+                    avatar: "https://cdip.uiu.ac.bd/wp-content/uploads/2016/06/17310241_1487657541245010_3566334006660079813_o.jpg",
                     name: "Rafiq Uddin",
                     location: "Bogura",
                     bloodType: "AB+",
@@ -56,7 +56,7 @@ export const donorsData = [
           },
           {
                     id: 6,
-                    avatar: "https://uploads.toptal.io/profile_photo/image/user/36530/large_bbaa11d8cf11e6ece3ebba5be6adbe5c.jpg",
+                    avatar: "http://profile.primeasia.edu.bd/public/profile/RIDWAN_1579612375.jpg",
                     name: "Sakib Uddin",
                     location: "Rangpur",
                     bloodType: "AB-",
@@ -78,7 +78,7 @@ export const donorsData = [
           },
           {
                     id: 8,
-                    avatar: "https://media-exp1.licdn.com/dms/image/D5603AQHOBFn4HBKfNw/profile-displayphoto-shrink_800_800/0/1645690764323?e=2147483647&v=beta&t=CoelHOgZCleG5OeNW5QOxkagyGi0myUn_80HQkezw54",
+                    avatar: "https://cse.uiu.ac.bd/wp-content/uploads/sites/2/2019/07/USA.jpg",
                     name: "Rahim Uddin",
                     location: "Cox's Bazar",
                     bloodType: "0-",

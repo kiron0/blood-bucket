@@ -11,9 +11,8 @@ import auth from "../../auth/Firebase/Firebase.config";
 
 const Navbar = () => {
   const [user] = useAuthState(auth);
-  // const [userInfo] = useUserInfo(user);
   const { pathname } = useLocation();
-  const [scrollY, setScrollY] = useState<Number>(0);
+  const [scrollY, setScrollY] = useState<any>(0);
 
   const handleScroll = () => {
     const position = window.pageYOffset as any;
@@ -36,65 +35,43 @@ const Navbar = () => {
 
   const NavbarMenus = (
     <>
-      <li>
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? "text-white uppercase bg-error" : ""
-          }
-          to="/"
-        >
-          Home
-        </NavLink>
+      <li className='lg:mr-6 py-2 lg:py-0 lg:hidden'>
+        <NavLink to="/" className={({ isActive }) =>
+          isActive ? "text-white btn btn-primary border border-error hover:border-error" : "btn glass text-black lg:text-white"
+        }>Home</NavLink>
       </li>
-      <li>
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? "text-white uppercase bg-error" : ""
-          }
-          to="/donors"
-        >
-          Find a donor
-        </NavLink>
+      <li className='lg:mr-6 py-2 lg:py-0'>
+        <NavLink to="/donors" className={({ isActive }) =>
+          isActive ? "text-white btn btn-primary border border-error hover:border-error" : "btn glass text-black lg:text-white"
+        }>Find a Donor</NavLink>
       </li>
-      <li>
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? "text-white uppercase bg-error" : ""
-          }
-          to="/campaigns"
-        >
-          Campaigns
-        </NavLink>
+      <li className='lg:mr-6 py-2 lg:py-0'>
+        <NavLink to="/campaigns" className={({ isActive }) =>
+          isActive ? "text-white btn btn-primary border border-error hover:border-error" : "btn glass text-black lg:text-white"
+        }>Campaigns</NavLink>
       </li>
-      <li>
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? "text-white uppercase bg-error" : ""
-          }
-          to="/volunteers"
-        >
-          Volunteers
-        </NavLink>
+      <li className='lg:mr-6 py-2 lg:py-0'>
+        <NavLink to="/volunteers" className={({ isActive }) =>
+          isActive ? "text-white btn btn-primary border border-error hover:border-error" : "btn glass text-black lg:text-white"
+        }>Volunteers</NavLink>
       </li>
-
-      <li>
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? "text-white uppercase bg-error" : ""
-          }
-          to="/contact-us"
-        >
-          Contact Us
-        </NavLink>
+      <li className='lg:mr-6 py-2 lg:py-0'>
+        <NavLink to="/contact-us" className={({ isActive }) =>
+          isActive ? "text-white btn btn-primary border border-error hover:border-error" : "btn glass text-black lg:text-white"
+        }>Contact Us</NavLink>
+      </li>
+      <li className='lg:mr-6 py-2 lg:py-0 hidden'>
+        <NavLink to="/contact-us" className={({ isActive }) =>
+          isActive ? "text-white btn btn-primary border border-error hover:border-error" : "btn glass text-black lg:text-white"
+        }>Contact Us</NavLink>
       </li>
     </>
   );
 
   return (
-    <div className="sticky top-0 w-full z-50">
+    <div className="sticky top-0 w-full glass z-50">
       <div
-        className={`drawer-content flex flex-col bg-base-100 duration-300 ${scrollY > 100 && `shadow-md bg-[#006A4E] text-white`
-          }`}
+        className={`drawer-content flex flex-col duration-300 shadow-md bg-[#006A4E] text-white`}
         style={
           pathname.includes("dashboard")
             ? { display: "none" }
@@ -107,10 +84,7 @@ const Navbar = () => {
               <label tabIndex={0} className="btn btn-ghost lg:hidden">
                 <CgMenuLeft className="text-3xl" />
               </label>
-              <ul
-                tabIndex={0}
-                className="menu menu-compact dropdown-content mt-3 p-2 shadow-xl bg-base-100 rounded-box w-52"
-              >
+              <ul tabIndex={0} className="menu menu-compact dropdown-content mt-4 p-2 shadow bg-base-100 rounded-box w-72">
                 {NavbarMenus}
               </ul>
             </div>
@@ -133,7 +107,7 @@ const Navbar = () => {
             {!user && (
               <NavLink
                 to="/login"
-                className="btn flex gap-2 items-center btn-error text-white"
+                className="btn glass flex gap-2 items-center btn-error text-white"
               >
                 <BiLogInCircle /> Login
               </NavLink>
@@ -143,16 +117,16 @@ const Navbar = () => {
                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                   <div
                     style={{ display: "grid" }}
-                    className="w-8 h-8 lg:w-10 lg:h-10 rounded-full border bg-base-300 grid place-items-center ring ring-primary ring-offset-base-100 ring-offset-2"
+                    className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-base-300 grid place-items-center ring ring-error ring-offset-base-100 ring-offset-2"
                   >
-                    <img src={auth?.currentUser?.photoURL as any} alt="" />
+                    <img src={auth?.currentUser?.photoURL || "https://i.ibb.co/xY0rfV4/avatar.jpg"} alt="" />
                   </div>
                 </label>
                 <ul
                   tabIndex={0}
-                  className="mt-3 p-2 shadow-xl menu menu-compact dropdown-content bg-base-100 rounded-box w-60"
+                  className="mt-5 p-2 shadow-xl menu menu-compact dropdown-content bg-[#006A4E] border border-primary rounded-box w-72 text-white"
                 >
-                  <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto my-4 border ring ring-primary ring-offset-base-100 ring-offset-2">
+                  <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto my-4 ring ring-error ring-offset-base-100 ring-offset-2">
                     <img
                       src="https://i.ibb.co/xY0rfV4/avatar.jpg"
                       alt="profile"
@@ -166,8 +140,8 @@ const Navbar = () => {
                       }
                     </h2>
 
-                    <Link to="/dashboard/profile">
-                      <button className="btn btn-primary mt-4 rounded-full text-white">
+                    <Link to="/">
+                      <button className="btn btn-error mt-4 rounded-full text-white">
                         View Profile
                       </button>
                     </Link>

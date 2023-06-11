@@ -1,15 +1,18 @@
 import React from "react";
 import app from "../../assets/app.png";
 import { BiDonateBlood } from "react-icons/bi";
-import useScrollToTop from "../../hooks/useScrollToTop";
 import Swal from "sweetalert2";
 
 const Footer = () => {
-    useScrollToTop();
-
     const handleSubscribe = (e: any) => {
         e.preventDefault();
         const email = e.target.email.value;
+        if (!email) return Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Please enter your email address!",
+            confirmButtonText: "Ok, got it!",
+        });
 
         Swal.fire(
             "Thanks for subscribe us!!",
@@ -21,10 +24,10 @@ const Footer = () => {
 
     return (
         <div
-            className="pt-16 bg-base-100 shadow-xl"
+            className="pt-16 bg-base-300 shadow-xl"
             style={{ clipPath: `ellipse(130% 100% at 51.45% 100%)` }}
         >
-            <footer className="footer px-10 py-10 bg-base-100 text-base-content container mx-auto">
+            <footer className="footer px-5 py-10 bg-base-300 text-base-content container mx-auto">
                 <div>
                     <BiDonateBlood className="text-3xl" />
                     <p>
@@ -90,16 +93,16 @@ const Footer = () => {
                                 <span className="label-text">Enter your email address</span>
                             </label>
                             <div className="relative">
-                                <input type="text" name="email" placeholder="username@site.com" className="input input-bordered w-full pr-16" required />
+                                <input type="text" name="email" placeholder="support@bloodbucket.com" className="input input-bordered w-full pr-16" />
                                 <button className="btn btn-error absolute top-0 right-0 rounded-l-none text-white">Subscribe</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </footer>
-            <div className="text-center py-6">
+            <div className="text-center py-6 px-10 md:px-0">
                 <p className="text-md font-semibold lg:text-sm">
-                    Copyright &copy; 2022 - All rights reserved by Blood Bucket.
+                    Copyright &copy; {new Date().getFullYear()} - All rights reserved by <span className="text-error hover:text-success cursor-pointer duration-300">Blood Bucket</span>.
                 </p>
             </div>
         </div>

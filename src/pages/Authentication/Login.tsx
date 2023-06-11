@@ -36,7 +36,7 @@ const Login = (props: Props) => {
   const loginForm = handleSubmit(async (formData) => {
     try {
       await signInWithEmailAndPassword(formData.email, formData.password);
-      if(user){
+      if (user) {
         toast.success("Login Successful!");
         navigate("/dashboard");
       }
@@ -67,31 +67,40 @@ const Login = (props: Props) => {
     // }
   }, [error, navigate]);
 
-  if(token){
+  if (token) {
     navigate("/");
+    toast.success("Login Successful!");
+  }
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <PulseLoader color="#3B82F6" />
+      </div>
+    );
   }
 
   return (
     <div className="flex justify-center sm:p-20 bg-cover bg-base-100">
       <div>
-        <div className="hero-content flex-col border  sm:p-10 bg-base-100">
-          {/* <div className="text-center lg:text-left max-w-md ">
+        <div className="hero-content flex border sm:p-10 bg-base-100">
+          <div className="text-center lg:text-left max-w-md hidden lg:flex">
             <img
               src="https://i.ibb.co/HVBwcZT/undraw-Access-account-re-8spm.png"
               alt="loginImage"
             />
-          </div> 
-          <div className="divider lg:divider-horizontal">+</div>*/}
+          </div>
+          {/* <div className="divider lg:divider-horizontal">+</div> */}
           <Fade top distance="20px">
             <form
               onSubmit={loginForm}
               className="card flex-shrink-0 w-full sm:w-[30rem]  bg-base-100"
             >
-              <div className="card-body p-5  ">
+              <div className="card-body p-5">
                 <div className="card-header mb-3">
-                  <span className="text-3xl  w-20 h-20 bg-gray-100 grid place-items-center mb-4">
+                  <Link to="/" className="text-3xl cursor-pointer w-20 h-20 bg-gray-100 grid place-items-center mb-4">
                     <BiLogIn />
-                  </span>
+                  </Link>
                   <h3 className="text-2xl">Login to Account</h3>
                 </div>
                 <div className="form-control rounded-none">

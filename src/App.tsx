@@ -1,6 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home/Home';
-import Navbar from './shared/Navbar/Navbar';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { createContext, useEffect, useState } from 'react';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import NotFound from './shared/NotFound/NotFound';
@@ -14,11 +12,75 @@ import Welcome from './pages/Dashboard/Welcome/Welcome';
 import ScrollButton from './components/ScrollButton/ScrollButton';
 import ContactUs from './pages/ContactUs/ContactUs';
 import Donors from './pages/Donors/Donors';
+import Root from './Layouts/Root';
+import Navbar from './shared/Navbar/Navbar';
+
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <Root />,
+    },
+    {
+      path: '/donors',
+      element:
+        <>
+          <Navbar />
+          <Donors />
+        </>
+    },
+    {
+      path: '/campaigns',
+      element:
+        <>
+          <Navbar />
+          <Campaigns />
+        </>,
+    },
+    {
+      path: '/volunteers',
+      element:
+        <>
+          <Navbar />
+          <Volunteers />
+        </>,
+    },
+    {
+      path: '/contact-us',
+      element:
+        <>
+          <Navbar />
+          <ContactUs />
+        </>,
+    },
+    {
+      path: '/login',
+      element: <Login />,
+    },
+    {
+      path: '/register',
+      element: <Register />,
+    },
+    {
+      path: '/dashboard',
+      element: <Dashboard />,
+      children: [
+        {
+          path: '/dashboard',
+          element: <Welcome />,
+        },
+      ],
+    },
+    {
+      path: "*",
+      element: <NotFound />
+    }
+  ]
+);
 
 export const InitializeContext = createContext(null as any);
 
-type Props = {};
-const App = (props: Props) => {
+const App = () => {
   const [theme, setTheme] = useState<Boolean>(false);
   const [isLoading, setIsLoading] = useState<Boolean>(false);
 
@@ -42,22 +104,23 @@ const App = (props: Props) => {
   return (
     <InitializeContext.Provider value={{ theme, handleThemeChange }}>
       <div data-theme={theme && "night"} className={theme ? '' : "bg-slate-50"}>
-        {isLoading ? <LoadingScreen /> : <Navbar />}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/donors" element={<Donors />} />
-          <Route path="/campaigns" element={<Campaigns />} />
-          <Route path="/volunteers" element={<Volunteers />} />
-          <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+        {/* <Routes>
           <Route path="/dashboard" element={<Dashboard />} >
             <Route index element={<Welcome />} />
           </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <ScrollButton />
-        <Toaster />
+        </Routes> */}
+        {
+          isLoading ? (
+            <LoadingScreen />
+          ) :
+            (
+              <>
+                <RouterProvider router={router} />
+                <ScrollButton />
+                <Toaster />
+              </>
+            )
+        }
       </div>
     </InitializeContext.Provider>
   );

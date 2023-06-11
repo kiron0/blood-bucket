@@ -97,8 +97,8 @@ export default function Register(props: Props) {
     >
       <div>
         <div className="hero-content p-0 overflow-hidden w-full flex-col lg:flex-row items-stretch shadow-lg border ">
-          <div className="h-100vh font-poppins bg-[#3fa7674f] sm:w-[30rem] grid place-items-center py-20 sm:py-0">
-            <div className="text-center px-8">
+          <div className="font-poppins bg-[#3fa7674f] sm:w-[30rem] grid place-items-center py-20 sm:py-0">
+            <div className="text-center px-8 py-5 lg:py-0">
               <Fade top distance="20px" cascade>
                 <h3 className="text-3xl font-bold">Welcome Back</h3>
                 <p className="my-4">
@@ -112,6 +112,16 @@ export default function Register(props: Props) {
                   className="btn btn-error rounded-full text-white"
                 >
                   {userRole ? "Donor" : "Receiver"} Account
+                </button>
+                <br />
+                <button
+                  onClick={() => {
+                    navigate("/");
+                  }
+                  }
+                  className="btn btn-success rounded-full text-white mt-5"
+                >
+                  Go to Home
                 </button>
               </Fade>
             </div>
