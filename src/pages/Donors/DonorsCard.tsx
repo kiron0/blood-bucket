@@ -3,6 +3,7 @@ import RequestForm from './RequestForm';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../auth/Firebase/Firebase.config';
 import { Link } from 'react-router-dom';
+import useUserInfo from '../../hooks/useUserInfo';
 
 type Props = {
           id: number,
@@ -17,6 +18,7 @@ type Props = {
 };
 export default function DonorsCard(props: Props) {
           const [user] = useAuthState(auth);
+          const [userInfo] = useUserInfo();
           const [showMore, setShowMore] = useState<Boolean>(false);
           const { id, avatar, name, bloodType, lastDonated, location, description, contact } = props;
           return (
@@ -36,12 +38,12 @@ export default function DonorsCard(props: Props) {
                                         <p className="font-semibold">Last Donated: {lastDonated}</p>
                                         <p className="font-semibold">Next Donated: {lastDonated}</p>
                                         <p className="font-semibold">Contact: {
-                                                  user?.uid ? <span className="badge badge-primary text-white">{contact}</span> :
+                                                  user?.email ? <span className="badge badge-primary text-white">{contact}</span> :
                                                             <Link to='/login' className="badge badge-primary text-white">Login to see</Link>
                                         }</p>
                                         <p className="mt-2 font-semibold text-lg">Donor details: </p>
                                         <p>{
-                                                  user?.uid ? <span>
+                                                  user?.email ? <span>
                                                             {
                                                                       description?.length > 100 && !showMore
                                                                                 ? description?.slice(0, 100) + "..."
@@ -62,9 +64,9 @@ export default function DonorsCard(props: Props) {
                               </div>
                               <div className="flex justify-end mt-4">
                                         {
-                                                  user?.uid ? <label htmlFor="bloodRequest" className='btn btn-primary text-white'>
+                                                  userInfo?.role === 'receiver' ? <label htmlFor="bloodRequest" className='btn btn-primary text-white'>
                                                             Blood Request
-                                                  </label> : <Link to='/login' className="btn btn-sm btn-primary text-white">Login to request blood</Link>
+                                                  </label> : <Link to='/login' className="btn btn-xs btn-primary text-white">Login receiver account to request blood</Link>
                                         }
                               </div>
                               <RequestForm />

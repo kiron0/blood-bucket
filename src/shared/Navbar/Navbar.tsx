@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { CgMenuLeft } from "react-icons/cg";
 import { BiDonateBlood } from "react-icons/bi";
@@ -8,9 +8,13 @@ import { signOut } from "firebase/auth";
 import { toast } from "react-hot-toast";
 import { BiLogInCircle } from "react-icons/bi";
 import auth from "../../auth/Firebase/Firebase.config";
+import { InitializeContext } from "../../App";
+import useUserInfo from "../../hooks/useUserInfo";
 
 const Navbar = () => {
+  const { appName } = useContext(InitializeContext);
   const [user] = useAuthState(auth);
+  const [userInfo] = useUserInfo();
   const { pathname } = useLocation();
   const [scrollY, setScrollY] = useState<any>(0);
 
@@ -94,9 +98,9 @@ const Navbar = () => {
             >
               <BiDonateBlood className="hidden lg:block text-2xl text-error" />{" "}
               {!user ? (
-                <span className="text-lg md:text-xl">Blood Bucket</span>
+                <span className="text-lg md:text-xl">{appName}</span>
               ) : (
-                <span className="ml-[-17px] md:ml-0">Blood Bucket</span>
+                <span className="ml-[-17px] md:ml-0">{appName}</span>
               )}
             </Link>
           </div>
@@ -119,7 +123,7 @@ const Navbar = () => {
                     style={{ display: "grid" }}
                     className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-base-300 grid place-items-center ring ring-error ring-offset-base-100 ring-offset-2"
                   >
-                    <img src={auth?.currentUser?.photoURL || "https://i.ibb.co/xY0rfV4/avatar.jpg"} alt="" />
+                    <img src={userInfo?.photoURL || "https://i.ibb.co/xY0rfV4/avatar.jpg"} alt="" />
                   </div>
                 </label>
                 <ul
@@ -128,7 +132,7 @@ const Navbar = () => {
                 >
                   <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto my-4 ring ring-error ring-offset-base-100 ring-offset-2">
                     <img
-                      src="https://i.ibb.co/xY0rfV4/avatar.jpg"
+                      src={userInfo?.photoURL || "https://i.ibb.co/xY0rfV4/avatar.jpg"}
                       alt="profile"
                       className="w-16 h-16 rounded-full"
                     />
@@ -140,7 +144,7 @@ const Navbar = () => {
                       }
                     </h2>
 
-                    <Link to="/">
+                    <Link to="/dashboard/profile">
                       <button className="btn btn-error mt-4 rounded-full text-white">
                         View Profile
                       </button>

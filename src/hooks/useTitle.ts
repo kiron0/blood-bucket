@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { InitializeContext } from "../App";
 
 const useTitle = (titleText: string) => {
+  const { appName } = useContext(InitializeContext);
   const [title, setTitle] = useState("");
+
   useEffect(() => {
-    document.title = titleText + " - Blood Bucket";
+    document.title = titleText + " - " + appName;
     setTitle(titleText);
-  }, [titleText]);
+  }, [titleText, appName]);
   return [title];
 };
 

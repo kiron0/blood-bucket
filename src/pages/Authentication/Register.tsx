@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
@@ -6,77 +6,105 @@ import {
   useCreateUserWithEmailAndPassword,
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import PulseLoader from "react-spinners/PulseLoader";
 import useScrollToTop from "../../hooks/useScrollToTop";
 import useTitle from "../../hooks/useTitle";
 import useToken from "../../hooks/useToken";
 import auth from "../../auth/Firebase/Firebase.config";
 import Loading from "../../components/Loading/Loading";
-
-type Props = {};
+import { BASE_API } from "../../config";
+import axios from "axios";
+import { InitializeContext } from "../../App";
 
 const Fade = require("react-reveal/Fade");
 
-export default function Register(props: Props) {
+export default function Register() {
   useScrollToTop();
   useTitle("Register");
+  const { appName } = useContext(InitializeContext);
   const [userRole, setUserRole] = useState(false);
   const [isShow, setIsShow] = useState<boolean>(false);
   const navigate = useNavigate();
-
-  type registerFormType = {
-    name: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    bloodGroup?: string;
-  };
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<registerFormType>();
+  } = useForm();
 
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
-
   const [updateProfile, updating, updateError] = useUpdateProfile(auth);
   const [token] = useToken(user as any);
+  const location = useLocation();
+  let from = location.state?.from?.pathname || "/";
 
-  const registerForm = handleSubmit(async (formData) => {
-    let role: string = userRole ? "receiver" : "donor";
-    if (!userRole) {
-      /* Phone Number Validation */
-      // if (!/^(?:\+88|01)?\d{11}$/.test((formData as any)?.phone)) {
-      //   return toast.error("Invalid Phone Number");
-      // }
-    }
-
-    if (formData.password === formData.confirmPassword) {
+  const registerForm = handleSubmit(async (data) => {
+    if (data.password === data.confirmPassword) {
       try {
-        await createUserWithEmailAndPassword(formData.email, formData.password);
+        await createUserWithEmailAndPassword(data.email, data.password).then(
+          (res) => {
+            const user = res?.user;
+            if (userRole === false) {
+              const donorData = {
+                role: "donor",
+                displayName: data.name,
+                uid: user?.uid,
+                email: data.email,
+                bloodGroup: data.bloodGroup,
+                photoURL: "https://i.ibb.co/xY0rfV4/avatar.jpg",
+              };
+              axios.put(`${BASE_API}/login`, donorData);
+              toast.success(
+                `Welcome ${donorData.displayName}! You are now registered as a Donor.`,
+                {
+                  position: "top-center",
+                }
+              );
+            } else {
+              const receiverData = {
+                role: "receiver",
+                uid: user?.uid,
+                displayName: data.name,
+                email: data.email,
+                photoURL: "https://i.ibb.co/xY0rfV4/avatar.jpg",
+              };
+              axios.put(`${BASE_API}/login`, receiverData);
+              toast.success(
+                `Welcome ${receiverData.displayName}! You are now registered as a Receiver.`,
+                {
+                  position: "top-center",
+                }
+              );
+            }
+          }
+        );
         await updateProfile({
-          displayName: formData.name,
-          photoURL: role,
+          displayName: data.name,
         });
-        toast.success("Account Created Successfully");
         reset();
-        navigate("/login");
-      } catch (error) {
-        // console.log(error);
-        toast.error(error as any);
+        navigate("/");
+        if (user) {
+          toast.success("Login Successful!");
+          navigate("/");
+        }
+      } catch (err) {
+        toast.error(err as any);
+        console.log(err);
       }
     } else {
       toast.error("Password does not match");
     }
   });
 
-  if (token) {
-    navigate("/", { replace: true });
-  }
+  useEffect(() => {
+    if (token || from === "/register" || auth?.currentUser?.email) {
+      navigate(from, { replace: true });
+      toast.success(`Welcome to ${appName}, ${auth?.currentUser?.displayName}`);
+    }
+  }, [token, navigate, from, appName]);
 
   useEffect(() => {
     if (error || updateError) {
@@ -102,7 +130,7 @@ export default function Register(props: Props) {
               <Fade top distance="20px" cascade>
                 <h3 className="text-3xl font-bold">Welcome Back</h3>
                 <p className="my-4">
-                  Welcome back to the Blood Bucket app. here you will get your life through blood for yourself.
+                  Welcome back to the {appName} app. here you will get your life through blood for yourself.
                 </p>
                 <button
                   onClick={() => {
@@ -129,7 +157,6 @@ export default function Register(props: Props) {
           <Fade top distance="10px">
             <form
               onSubmit={registerForm}
-              method="post"
               className="card flex-shrink-0 w-full sm:w-[30rem] p-5 sm:p-10"
             >
               <div className="card-body p-3">

@@ -12,65 +12,50 @@ import {
 import useTitle from "../../hooks/useTitle";
 import auth from "../../auth/Firebase/Firebase.config";
 import { toast } from "react-hot-toast";
-import useToken from "../../hooks/useToken";
 
 const Fade = require("react-reveal/Fade");
 
-type Props = {};
-
-const Login = (props: Props) => {
+const Login = () => {
   useScrollToTop();
   useTitle("Login");
-  //react hook form
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [signInWithEmailAndPassword, user, loading, error] =
+  const [signInWithEmailAndPassword, loading, error] =
     useSignInWithEmailAndPassword(auth);
   const [isShow, setIsShow] = useState<boolean>(false);
-  const [token] = useToken(user as any);
   const navigate = useNavigate();
-  //Handle Form
-  const loginForm = handleSubmit(async (formData) => {
+  const loginForm = handleSubmit(async (data) => {
     try {
-      await signInWithEmailAndPassword(formData.email, formData.password);
-      if (user) {
-        toast.success("Login Successful!");
-        navigate("/dashboard");
-      }
+      await signInWithEmailAndPassword(data.email, data.password)
+        .then(
+          (res) => {
+            const user = res?.user;
+            if (user?.email) {
+              toast.success("Login Successfully");
+              navigate("/");
+            }
+          }
+        );
     } catch (err) {
       toast.error(err as any);
       console.log(err);
     }
   });
 
-  /* Handle Another Options */
-  useEffect(() => {
-    /* If Error */
-    if (error) {
-      // toast.error((error as any).data?.message);
-      // toast.error((error as any)?.data);
-      swal({
-        title: (error as any),
-        icon: "error",
-        dangerMode: true,
-        buttons: ["cancel", "okay"],
-      });
-    }
-    //     /* If Success */
-    // if (isSuccess) {
-    //   navigate("/dashboard/profile");
-    //   dispatch(setAuthInformation({ user: data?.user, token: data?.token }));
-    //   cogoToast.success("Login Success");
-    // }
-  }, [error, navigate]);
-
-  if (token) {
-    navigate("/");
-    toast.success("Login Successful!");
-  }
+  // useEffect(() => {
+  //   if (error) {
+  //     swal({
+  //       title: (error as any),
+  //       icon: "error",
+  //       dangerMode: true,
+  //       buttons: ["cancel", "okay"],
+  //     });
+  //     console.log(error);
+  //   }
+  // }, [error, navigate]);
 
   if (loading) {
     return (

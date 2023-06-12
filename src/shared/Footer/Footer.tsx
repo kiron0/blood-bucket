@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import app from "../../assets/app.png";
 import { BiDonateBlood } from "react-icons/bi";
 import Swal from "sweetalert2";
+import { InitializeContext } from "../../App";
 
 const Footer = () => {
+    const { appName } = useContext(InitializeContext);
     const handleSubscribe = (e: any) => {
         e.preventDefault();
         const email = e.target.email.value;
@@ -31,7 +33,7 @@ const Footer = () => {
                 <div>
                     <BiDonateBlood className="text-3xl" />
                     <p>
-                        <span className="text-2xl font-semibold">Blood Bucket.</span>
+                        <span className="text-2xl font-semibold">{appName}.</span>
                         <br />
                         All rights reserved.
                     </p>
@@ -102,7 +104,7 @@ const Footer = () => {
             </footer>
             <div className="text-center py-6 px-10 md:px-0">
                 <p className="text-md font-semibold lg:text-sm">
-                    Copyright &copy; {new Date().getFullYear()} - All rights reserved by <span className="text-error hover:text-success cursor-pointer duration-300">Blood Bucket</span>.
+                    Copyright &copy; {new Date().getFullYear()} - All rights reserved by <span className="text-error hover:text-success cursor-pointer duration-300">{appName}</span>.
                 </p>
             </div>
         </div>
